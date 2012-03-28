@@ -13,6 +13,19 @@
  * for "describe" and "it" so they follow the same rules for nesting. 
  */
 
+if (location.hash) {
+	String.locale = location.hash.substr(1);	
+}
+
+var localize = function (string, fallback) {
+	var localized = string.toLocaleString();
+	if (localized !== string) {
+		return localized;
+	} else {
+		return fallback;
+	}
+};
+
 // Top level namespace for the package
 jasmine.grammar = (typeof jasmine.grammar === 'undefined') ? {} : jasmine.grammar;
 
@@ -26,7 +39,7 @@ jasmine.grammar.FeatureStory = {
      * Defines a suite tagged as a "feature"
      */
     feature: function(description, specDefinitions) {
-        var suite = jasmine.grammar.getEnv().describe('Feature: ' + description, specDefinitions);
+        var suite = jasmine.grammar.getEnv().describe(localize('%feature','Feature: ') + description, specDefinitions);
         suite.tags = ['feature'];
         return suite;
     },
@@ -35,7 +48,7 @@ jasmine.grammar.FeatureStory = {
      * Defines a suite tagged as a "story"
      */
     story: function(description, specDefinitions) {
-        var suite = jasmine.grammar.getEnv().describe('Story: ' + description, specDefinitions);
+        var suite = jasmine.grammar.getEnv().describe(localize('%storye', 'Story: ') + description, specDefinitions);
         suite.tags = ['story'];
         return suite;
     },
@@ -44,7 +57,7 @@ jasmine.grammar.FeatureStory = {
      * Defines a suite tagged as a "component"
      */
     component: function(description, specDefinitions) {
-        var suite = jasmine.grammar.getEnv().describe('Component: ' + description, specDefinitions);
+        var suite = jasmine.grammar.getEnv().describe(localize('%component','Component: ') + description, specDefinitions);
         suite.tags = ['component'];
         return suite;
     },
@@ -53,7 +66,7 @@ jasmine.grammar.FeatureStory = {
      * Defines a spec marked as a "scenario"
      */
     scenario: function(desc, func) {
-        return jasmine.grammar.getEnv().it('Scenario: ' + desc, func);
+        return jasmine.grammar.getEnv().it(localize('%scenario','Scenario: ') + desc, func);
     }
 };
 
@@ -67,35 +80,35 @@ jasmine.grammar.GWT = {
      * Defines a "given" step as a runs block that marks the beginning of a GWT chain
      */
     given: function(desc, func) {
-        return this._addStepToCurrentSpec('Given ' + desc, func);
+        return this._addStepToCurrentSpec(localize('%given','Given ') + desc, func);
     },
     
     /**
      * Defines a "when" step as a runs block that marks the interesting event in a GWT chain
      */
     when: function(desc, func) {
-        return this._addStepToCurrentSpec('When ' + desc, func);
+        return this._addStepToCurrentSpec(localize('%when','When ') + desc, func);
     },
     
     /**
      * Defines a "then" step as a runs block that marks the conclusion of a Given, when, then construct
      */
     then: function(desc, func) {
-        return this._addStepToCurrentSpec('Then ' + desc, func);
+        return this._addStepToCurrentSpec(localize('%then','Then ') + desc, func);
     },
     
     /**
      * Defines an "and" step as a runs block that is a continuation from a "then" statement
      */
     and: function(desc, func) {
-        return this._addStepToCurrentSpec('And ' + desc, func);
+        return this._addStepToCurrentSpec(localize('%and','And ') + desc, func);
     },
     
     /**
      * Defines a "but" step as a runs block that is a continuation from a "then" statement
      */
     but: function(desc, func) {
-        return this._addStepToCurrentSpec('But ' + desc, func);
+        return this._addStepToCurrentSpec(localize('%but','But ') + desc, func);
     },    
         
     /**
