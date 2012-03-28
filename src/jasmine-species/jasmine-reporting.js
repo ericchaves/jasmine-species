@@ -50,7 +50,12 @@ jasmine.reporting.StyledHtmlReporter.prototype.reportRunnerStarting = function(r
           this.finishedAtSpan = this.createDom('span', { className: 'finished-at' }, ""))
       );
 
-  this.document.body.appendChild(this.outerDiv);
+	var results_div = this.document.getElementById('jasmine_results');
+	  if(results_div) {
+	    results_div.appendChild(this.outerDiv);
+	  } else {
+	    this.document.body.appendChild(this.outerDiv);
+	  }
 
   var suites = runner.suites();
   for (var i = 0; i < suites.length; i++) {
