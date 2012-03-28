@@ -1,5 +1,5 @@
 String.toLocaleString({
-	"en-US": {
+	"en-us": {
 		"%feature": "Feature: ",
 		"%story": "Story: ",
 		"%component": "Component: ",
@@ -10,7 +10,7 @@ String.toLocaleString({
 		"%and": "And ",
 		"%but": "But "
 	},
-	"pt-BR": {
+	"pt-br": {
 		"%feature": "Funcionalidade: ",
 		"%story": "Estória: ",
 		"%component": "Componente: ",
